@@ -325,13 +325,16 @@ public final class GrConcatenationAwareInjector implements ConcatenationAwareInj
             InjectionInfo last = ContainerUtil.getLastItem(list);
             if (last != null) {
               InjectedLanguage injected = last.language();
-              list.set(list.size() - 1, new InjectionInfo(last.host(), InjectedLanguage.create(injected.getID(), injected.getPrefix(),
-                                                                                               prefix.toString(), false), last.range()));
+              list.set(list.size() - 1, new InjectionInfo(last.host(), InjectedLanguage.create(injected.getID(),
+                                                                                               injected.getPrefix(),
+                                                                                               prefix.toString(),
+                                                                                               injected.getExtension(),
+                                                                                               false), last.range()));
             }
           }
         }
         else if (operand instanceof PsiLanguageInjectionHost host) {
-          InjectedLanguage injectedLanguage = InjectedLanguage.create(languageID, prefix.toString(), "", false);
+          InjectedLanguage injectedLanguage = InjectedLanguage.create(languageID, prefix.toString(), "", injection.getExtension(), false);
           TextRange range = manipulator.getRangeInElement(host);
           list.add(new InjectionInfo(host, injectedLanguage, range));
           prefix.setLength(0);

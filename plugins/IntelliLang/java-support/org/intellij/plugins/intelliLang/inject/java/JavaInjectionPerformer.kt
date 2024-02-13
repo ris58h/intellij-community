@@ -27,7 +27,9 @@ class JavaInjectionPerformer : LanguageInjectionPerformer {
 
     val injectedLanguage = InjectedLanguage.create(injection.injectedLanguageId,
                                                    injection.prefix,
-                                                   injection.suffix, false) ?: return false
+                                                   injection.suffix,
+                                                   injection.extension,
+                                                   false) ?: return false
 
     val language = injectedLanguage.language ?: return false
 
@@ -37,14 +39,18 @@ class JavaInjectionPerformer : LanguageInjectionPerformer {
       if (operand !is PsiLanguageInjectionHost) continue
       val injectionPart = InjectedLanguage.create(injection.injectedLanguageId,
                                                   pendingPrefix,
-                                                  null, false) ?: continue
+                                                  null,
+                                                  injection.extension,
+                                                  false) ?: continue
       pendingPrefix = ""
       infos.add(InjectionInfo(operand, injectionPart, ElementManipulators.getValueTextRange(operand)))
     }
 
     InjectedLanguage.create(injection.injectedLanguageId,
                             pendingPrefix,
-                            injectedLanguage.suffix, false)?.let { injectionPart ->
+                            injectedLanguage.suffix,
+                            injectedLanguage.extension,
+                            false)?.let { injectionPart ->
       val operand = operands.last() as? PsiLanguageInjectionHost ?: return@let
       infos.add(InjectionInfo(operand, injectionPart, ElementManipulators.getValueTextRange(operand)))
     }

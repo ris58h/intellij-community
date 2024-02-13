@@ -378,6 +378,7 @@ public final class ConcatenationInjector implements ConcatenationAwareInjector {
               curHost, InjectedLanguage.create(injection.getInjectedLanguageId(),
                                                separateFiles || j == 0 ? curPrefix : "",
                                                separateFiles || j == injectedAreaSize - 1 ? curSuffix : "",
+                                               injection.getExtension(),
                                                true), textRange));
           }
         }

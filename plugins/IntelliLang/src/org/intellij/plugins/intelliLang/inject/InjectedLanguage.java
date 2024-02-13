@@ -35,12 +35,15 @@ public final class InjectedLanguage {
   private final String myPrefix;
   @NotNull
   private final String mySuffix;
+  @NotNull
+  private final String myExtension;
   private final boolean myDynamic;
 
-  private InjectedLanguage(@NotNull String id, @NotNull String prefix, @NotNull String suffix, boolean dynamic) {
+  private InjectedLanguage(@NotNull String id, @NotNull String prefix, @NotNull String suffix, @NotNull String extension, boolean dynamic) {
     myID = id;
     myPrefix = prefix;
     mySuffix = suffix;
+    myExtension = extension;
     myDynamic = dynamic;
   }
 
@@ -62,6 +65,11 @@ public final class InjectedLanguage {
   @NotNull
   public String getSuffix() {
     return mySuffix;
+  }
+
+  @NotNull//TODO nullable?
+  public String getExtension() {
+    return myExtension;
   }
 
   /**
@@ -143,12 +151,13 @@ public final class InjectedLanguage {
 
   @Nullable
   public static InjectedLanguage create(String id) {
-    return create(id, "", "", false);
+    return create(id, "", "", "", false);
   }
 
-  @Contract(value = "null, _, _, _ -> null; !null, _, _, _ -> new", pure = true)
+  //TODO separate method
+  @Contract(value = "null, _, _, _, _ -> null; !null, _, _, _, _ -> new", pure = true)
   @Nullable
-  public static InjectedLanguage create(@Nullable String id, String prefix, String suffix, boolean isDynamic) {
-    return id == null ? null : new InjectedLanguage(id, prefix == null ? "" : prefix, suffix == null ? "" : suffix, isDynamic);
+  public static InjectedLanguage create(@Nullable String id, String prefix, String suffix, String extension, boolean isDynamic) {
+    return id == null ? null : new InjectedLanguage(id, prefix == null ? "" : prefix, suffix == null ? "" : suffix, extension, isDynamic);
   }
 }

@@ -29,6 +29,6 @@ internal class FrontMatterHeaderLanguageInjectionPerformer: LanguageInjectionPer
   }
 
   private fun Injection.createInjectedLanguage(): InjectedLanguage? {
-    return InjectedLanguage.create(injectedLanguageId, prefix, suffix, false)
+    return InjectedLanguage.create(injectedLanguageId, prefix, suffix, extension, false)
   }
 }

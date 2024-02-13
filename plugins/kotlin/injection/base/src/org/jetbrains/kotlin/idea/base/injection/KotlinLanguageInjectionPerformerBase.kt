@@ -56,7 +56,7 @@ abstract class KotlinLanguageInjectionPerformerBase : LanguageInjectionPerformer
 
         fun injectionRange(literal: KtStringTemplateExpression, range: TextRange, prefix: String, suffix: String): InjectorUtils.InjectionInfo {
             TextRange.assertProperRange(range, injection)
-            val injectedLanguage = InjectedLanguage.create(injection.injectedLanguageId, prefix, suffix, true)!!
+            val injectedLanguage = InjectedLanguage.create(injection.injectedLanguageId, prefix, suffix, injection.extension, true)!!
             return InjectorUtils.InjectionInfo(literal, injectedLanguage, range)
         }
 

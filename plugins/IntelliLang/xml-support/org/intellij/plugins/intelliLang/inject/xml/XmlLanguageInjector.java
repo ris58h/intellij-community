@@ -119,7 +119,7 @@ final class XmlLanguageInjector implements MultiHostInjector {
                 if (!injection.shouldBeIgnored(element)) {
                   List<TextRange> list = injection.getInjectedArea(element);
                   InjectedLanguage l =
-                    InjectedLanguage.create(injection.getInjectedLanguageId(), injection.getPrefix(), injection.getSuffix(), false);
+                    InjectedLanguage.create(injection.getInjectedLanguageId(), injection.getPrefix(), injection.getSuffix(), injection.getExtension(), false);
                   for (TextRange textRange : list) {
                     result.add(new InjectionInfo((PsiLanguageInjectionHost)element, l, textRange));
                   }
@@ -175,7 +175,7 @@ final class XmlLanguageInjector implements MultiHostInjector {
           if (ranges.isEmpty()) continue;
           final List<InjectionInfo> result = new ArrayList<>();
           final InjectedLanguage l =
-            InjectedLanguage.create(injection.getInjectedLanguageId(), injection.getPrefix(), injection.getSuffix(), false);
+            InjectedLanguage.create(injection.getInjectedLanguageId(), injection.getPrefix(), injection.getSuffix(), injection.getExtension(), false);
           for (TextRange textRange : ranges) {
             result.add(new InjectionInfo((PsiLanguageInjectionHost)value, l, textRange));
           }

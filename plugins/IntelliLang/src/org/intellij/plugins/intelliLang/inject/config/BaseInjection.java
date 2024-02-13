@@ -58,6 +58,7 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
   private @NlsSafe String myInjectedLanguageId = "";
   private String myPrefix = "";
   private String mySuffix = "";
+  private String myExtension = "";
 
   @NonNls
   private String myValuePattern = "";
@@ -82,6 +83,7 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
     myInjectedLanguageId = injectedLanguageId;
     myPrefix = prefix;
     mySuffix = suffix;
+    myExtension = myExtension;//TODO
     myPlaces = places;
   }
 
@@ -145,6 +147,16 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
 
   public void setSuffix(@NotNull String suffix) {
     mySuffix = suffix;
+  }
+
+  @Override
+  @NotNull
+  public String getExtension() {
+    return myExtension;
+  }
+
+  public void setExtension(@NotNull String extension) {
+    myExtension = extension;
   }
 
   /**
@@ -242,6 +254,7 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
     if (!myInjectedLanguageId.equals(that.myInjectedLanguageId)) return false;
     if (!myPrefix.equals(that.myPrefix)) return false;
     if (!mySuffix.equals(that.mySuffix)) return false;
+    if (!myExtension.equals(that.myExtension)) return false;
     if (!myValuePattern.equals(that.myValuePattern)) return false;
     if (mySingleFile != that.mySingleFile) return false;
     return true;
@@ -274,6 +287,7 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
     result = myInjectedLanguageId.hashCode();
     result = 31 * result + myPrefix.hashCode();
     result = 31 * result + mySuffix.hashCode();
+    result = 31 * result + myExtension.hashCode();
     result = 31 * result + myValuePattern.hashCode();
     result = 31 * result + myIgnorePattern.hashCode();
     return result;
@@ -285,6 +299,7 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
     myInjectedLanguageId = other.getInjectedLanguageId();
     myPrefix = other.getPrefix();
     mySuffix = other.getSuffix();
+    myExtension = other.getExtension();
 
     myDisplayName = other.getDisplayName();
 
@@ -304,6 +319,7 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
     myInjectedLanguageId = StringUtil.notNullize(element.getAttributeValue("language"));
     myPrefix = StringUtil.notNullize(getValueOrContent(element, "prefix"));
     mySuffix = StringUtil.notNullize(getValueOrContent(element, "suffix"));
+    myExtension = StringUtil.notNullize(getValueOrContent(element, "extension"));
     setValuePattern(getValueOrContent(element, "value-pattern"));
     setIgnorePattern(getValueOrContent(element, "ignore-pattern"));
     Element singleFileElement = element.getChild("single-file");
@@ -351,6 +367,9 @@ public class BaseInjection implements Injection, PersistentStateComponent<Elemen
     }
     if (StringUtil.isNotEmpty(mySuffix)) {
       e.addContent(withValueOrContent("suffix", mySuffix));
+    }
+    if (StringUtil.isNotEmpty(myExtension)) {
+      e.addContent(withValueOrContent("extension", myExtension));
     }
     if (StringUtil.isNotEmpty(myValuePattern)) {
       e.addContent(withValueOrContent("value-pattern", myValuePattern));

@@ -36,6 +36,12 @@ public interface Injection {
   @NotNull
   String getSuffix();
 
+  //TODO add clarifying comment
+  @NotNull//TODO make it nullable?
+  default String getExtension() {
+    return "";
+  }
+
   /**
    * @return the ID of a tool which will provide UI utils to manage this injection.
    * <p>

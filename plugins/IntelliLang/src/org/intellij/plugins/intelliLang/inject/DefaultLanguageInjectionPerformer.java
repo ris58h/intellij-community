@@ -28,7 +28,9 @@ final class DefaultLanguageInjectionPerformer implements FallbackInjectionPerfor
     PsiFile containingFile = context.getContainingFile();
     InjectedLanguage injectedLanguage = InjectedLanguage.create(injection.getInjectedLanguageId(),
                                                                 injection.getPrefix(),
-                                                                injection.getSuffix(), false);
+                                                                injection.getSuffix(),
+                                                                injection.getExtension(),
+                                                                false);
 
     String injectionSupportId = injection.getSupportId();
     LanguageInjectionSupport support = injectionSupportId != null ? InjectorUtils.findInjectionSupport(injectionSupportId) : null;

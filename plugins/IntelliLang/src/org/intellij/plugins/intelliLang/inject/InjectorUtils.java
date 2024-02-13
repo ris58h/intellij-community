@@ -87,7 +87,7 @@ public final class InjectorUtils {
     if (language == null) return false;
 
     InjectedLanguage injectedLanguage =
-      InjectedLanguage.create(injection.getInjectedLanguageId(), injection.getPrefix(), injection.getSuffix(), false);
+      InjectedLanguage.create(injection.getInjectedLanguageId(), injection.getPrefix(), injection.getSuffix(), injection.getExtension(), false);
 
     List<TextRange> ranges = injection.getInjectedArea(host);
     List<InjectionInfo> list = new ArrayList<>(ranges.size());
@@ -155,8 +155,12 @@ public final class InjectorUtils {
       InjectedLanguage injectedLanguage = t.language();
 
       if (!injectionStarted) {
+        String extension = injectedLanguage.getExtension();
+        if (!extension.isEmpty()) {//TODO check for null
+          registrar.startInjecting(language, extension);
+        }
         // TextMate language requires file extension
-        if (!StringUtil.equalsIgnoreCase(language.getID(), t.language().getID())) {
+        else if (!StringUtil.equalsIgnoreCase(language.getID(), t.language().getID())) {
           registrar.startInjecting(language, StringUtil.toLowerCase(t.language().getID()));
         }
         else {

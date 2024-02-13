@@ -47,6 +47,7 @@ public class LanguagePanel extends AbstractInjectionPanel<BaseInjection> {
   private ComboBox<@Nls String> myLanguage;
   private EditorTextField myPrefix;
   private EditorTextField mySuffix;
+  private EditorTextField myExtension;
 
   public LanguagePanel(Project project, BaseInjection injection) {
     super(injection, project);
@@ -147,11 +148,22 @@ public class LanguagePanel extends AbstractInjectionPanel<BaseInjection> {
     }
   }
 
+  public String getExtension() {
+    return myExtension.getText();
+  }
+
+  public void setExtension(String s) {
+    if (!myExtension.getText().equals(s)) {
+      myExtension.setText(s);
+    }
+  }
+
   @Override
   protected void resetImpl() {
     setLanguage(myOrigInjection.getInjectedLanguageId());
     setPrefix(myOrigInjection.getPrefix());
     setSuffix(myOrigInjection.getSuffix());
+    setExtension(myOrigInjection.getExtension());
   }
 
   @Override
@@ -159,6 +171,7 @@ public class LanguagePanel extends AbstractInjectionPanel<BaseInjection> {
     i.setInjectedLanguageId(getLanguage());
     i.setPrefix(getPrefix());
     i.setSuffix(getSuffix());
+    i.setExtension(getExtension());
   }
 
   @Override
